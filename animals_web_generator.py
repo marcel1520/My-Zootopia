@@ -18,16 +18,16 @@ def get_animal_data(animal_list):
         if "type" in character:
             character_type = character["type"]
             animal_info += ("<li class='cards__item'>\n"
-                            f"name: {animal_name}<br/>\n"
-                            f"Diet: {diet}<br/>\n"
-                            f"Location: {location}<br/>\n"
-                            f"Type: {character_type}<br/>\n"
+                            f"<div class='card__title'>{animal_name}</div>"
+                            f"<strong>Diet:</strong> {diet}<br/>\n"
+                            f"<strong>Location:</strong> {location}<br/>\n"
+                            f"<strong>Type:</strong> {character_type}<br/>\n"
                             '</li>\n')
         else:
             animal_info += ("<li class='cards__item'>\n"
-                            f"name: {animal_name}<br/>\n"
-                            f"Diet: {diet}<br/>\n"
-                            f"Location: {location}<br/>\n"
+                            f"<div class='card__title'>{animal_name}</div>"
+                            f"<strong>Diet:</strong> {diet}<br/>\n"
+                            f"<strong>Location:</strong> {location}<br/>\n"
                             '</li>\n')
     return animal_info
 
