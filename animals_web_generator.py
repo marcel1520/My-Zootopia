@@ -7,28 +7,35 @@ def load_data(file_path):
         return json.load(handle)
 
 
+def serialize_animal_data(animal):
+    '''serialize animal data'''
+    animal_info = ""
+    animal_name = animal["name"]
+    diet = animal["characteristics"]["diet"]
+    location = ", ".join(map(str, animal["locations"]))
+    character = animal["characteristics"]
+    if "type" in character:
+        character_type = character["type"]
+        animal_info += ("<li class='cards__item'>\n"
+                        f"<div class='card__title'>{animal_name}</div>"
+                        f"<strong>Diet:</strong> {diet}<br/>\n"
+                        f"<strong>Location:</strong> {location}<br/>\n"
+                        f"<strong>Type:</strong> {character_type}<br/>\n"
+                        '</li>\n')
+    else:
+        animal_info += ("<li class='cards__item'>\n"
+                        f"<div class='card__title'>{animal_name}</div>"
+                        f"<strong>Diet:</strong> {diet}<br/>\n"
+                        f"<strong>Location:</strong> {location}<br/>\n"
+                        '</li>\n')
+    return animal_info
+
+
 def get_animal_data(animal_list):
     '''retrieving animal info'''
     animal_info = ""
     for animal in animal_list:
-        animal_name = animal["name"]
-        diet = animal["characteristics"]["diet"]
-        location = ", ".join(map(str, animal["locations"]))
-        character = animal["characteristics"]
-        if "type" in character:
-            character_type = character["type"]
-            animal_info += ("<li class='cards__item'>\n"
-                            f"<div class='card__title'>{animal_name}</div>"
-                            f"<strong>Diet:</strong> {diet}<br/>\n"
-                            f"<strong>Location:</strong> {location}<br/>\n"
-                            f"<strong>Type:</strong> {character_type}<br/>\n"
-                            '</li>\n')
-        else:
-            animal_info += ("<li class='cards__item'>\n"
-                            f"<div class='card__title'>{animal_name}</div>"
-                            f"<strong>Diet:</strong> {diet}<br/>\n"
-                            f"<strong>Location:</strong> {location}<br/>\n"
-                            '</li>\n')
+        animal_info += serialize_animal_data(animal)
     return animal_info
 
 
@@ -62,7 +69,7 @@ def main():
     animal_data_get = get_animal_data(animal_data)
     html_file_read = read_html_file("animals_template.html")
     string_replace = replace_string(html_file_read, animal_data_get)
-    animal_html_write = write_animal_html(string_replace)
+    write_animal_html(string_replace)
 
 
 if __name__ == "__main__":
